@@ -17,25 +17,32 @@ export const Attachment = React.forwardRef<HTMLDivElement, AttachmentProps>(
       ...props
     },
     ref,
-  ) => (
-    <AttachmentContext.Provider value={{ state, size, orientation }}>
-      <div
-        ref={ref}
-        data-slot="attachment"
-        data-state={state}
-        data-size={size}
-        data-orientation={orientation}
-        className={cn(
-          attachmentVariants({ orientation, size, state }),
-          'has-[[data-slot=attachment-trigger]]:hover:border-tulpar-blue/50 has-[[data-slot=attachment-trigger]]:hover:bg-gunmetal/20',
-          className,
-        )}
-        {...props}
-      >
-        {children}
-      </div>
-    </AttachmentContext.Provider>
-  ),
+  ) => {
+    const contextValue = React.useMemo(
+      () => ({ state, size, orientation }),
+      [state, size, orientation],
+    );
+
+    return (
+      <AttachmentContext.Provider value={contextValue}>
+        <div
+          ref={ref}
+          data-slot="attachment"
+          data-state={state}
+          data-size={size}
+          data-orientation={orientation}
+          className={cn(
+            attachmentVariants({ orientation, size, state }),
+            'has-data-[slot=attachment-trigger]:hover:border-tulpar-blue/50 has-data-[slot=attachment-trigger]:hover:bg-gunmetal/20',
+            className,
+          )}
+          {...props}
+        >
+          {children}
+        </div>
+      </AttachmentContext.Provider>
+    );
+  },
 );
 Attachment.displayName = 'Attachment';
 

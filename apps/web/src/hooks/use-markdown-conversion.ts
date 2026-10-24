@@ -41,8 +41,17 @@ export function useMarkdownConversion() {
       body: formData,
     });
 
+    if (!response.ok) {
+      const errorData = (await response.json().catch(() => null)) as {
+        error?: { message?: string };
+      } | null;
+      throw new Error(
+        errorData?.error?.message ??
+          'Markdown dönüşümü tamamlanamadı. Lütfen tekrar deneyin.',
+      );
+    }
+
     const body = (await response.json().catch(() => null)) as {
-      error?: { message?: string };
       results?: MarkdownItem[];
       combinedMarkdown?: string;
       count?: number;
@@ -53,10 +62,9 @@ export function useMarkdownConversion() {
       wordCount?: number;
     } | null;
 
-    if (!response.ok || !body) {
+    if (!body) {
       throw new Error(
-        body?.error?.message ??
-          'Markdown dönüşümü tamamlanamadı. Lütfen tekrar deneyin.',
+        'Markdown dönüşümü tamamlanamadı. Lütfen tekrar deneyin.',
       );
     }
 

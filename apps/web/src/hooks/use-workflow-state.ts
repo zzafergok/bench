@@ -172,11 +172,9 @@ export function useWorkflowState() {
     if (jobState === 'processing') return;
     onResetHooks?.();
     setError(null);
-    setFiles((cur) => {
-      const next = cur.filter((_, i) => i !== index);
-      setJobState(next.length ? 'ready' : 'idle');
-      return next;
-    });
+    const next = files.filter((_, i) => i !== index);
+    setFiles(next);
+    setJobState(next.length ? 'ready' : 'idle');
   }
 
   function moveFileUp(index: number, onResetHooks?: () => void) {

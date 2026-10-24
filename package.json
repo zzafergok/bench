@@ -8,6 +8,7 @@
     "build": "pnpm --filter @bench/api build && pnpm --filter @bench/web build",
     "typecheck": "pnpm --filter @bench/api typecheck && pnpm --filter @bench/web typecheck",
     "test": "pnpm --filter @bench/api test && pnpm --filter @bench/web test",
+    "check:doctor": "pnpm --filter @bench/web check:doctor",
     "check:lines": "node scripts/check-line-protocol.mjs",
     "lint": "node scripts/check-line-protocol.mjs && eslint ."
   },

@@ -127,7 +127,7 @@ export function ImageOptimizeWorkflow({
         {files.map((file, index) => (
           <div
             className="selected-file"
-            key={`${file.name}-${file.lastModified}-${index}`}
+            key={`${file.name}-${file.size}-${file.lastModified}`}
           >
             <span className="file-icon">
               <ImageIcon />

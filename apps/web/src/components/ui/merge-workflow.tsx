@@ -80,7 +80,7 @@ export function MergeWorkflow({
         {files.map((file, index) => (
           <div
             className="selected-file merge-file-item"
-            key={`${file.name}-${file.lastModified}-${index}`}
+            key={`${file.name}-${file.size}-${file.lastModified}`}
           >
             <span className="order-badge">#{index + 1}</span>
             <span className="file-icon">

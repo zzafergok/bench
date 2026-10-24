@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { AlertCircle, Check, Info, Loader2, X } from 'lucide-react';
 import { Button } from '@/components/core/button';
@@ -41,48 +41,36 @@ export function ToastItem({ t }: { t: Toast }) {
   const isInfinite = !isFinite(totalDuration as number);
 
   const [progress, setProgress] = useState(100);
+  const [isPaused, setIsPaused] = useState(false);
   const remainingRef = useRef(totalDuration as number);
   const startTimeRef = useRef(0);
-  const rafRef = useRef<number>(0);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
-  const startTimer = useCallback(() => {
+  useEffect(() => {
+    if (isInfinite || isPaused) return;
+
     startTimeRef.current = Date.now();
-    timeoutRef.current = setTimeout(
-      () => toast.dismiss(t.id),
-      remainingRef.current,
-    );
+    const timerId = setTimeout(() => toast.dismiss(t.id), remainingRef.current);
 
+    let rafId: number;
     const tick = () => {
       const elapsed = Date.now() - startTimeRef.current;
       const remaining = remainingRef.current - elapsed;
       setProgress(Math.max(0, (remaining / (totalDuration as number)) * 100));
       if (remaining > 0) {
-        rafRef.current = requestAnimationFrame(tick);
+        rafId = requestAnimationFrame(tick);
       }
     };
-    rafRef.current = requestAnimationFrame(tick);
-  }, [t.id, totalDuration]);
+    rafId = requestAnimationFrame(tick);
 
-  const pauseTimer = useCallback(() => {
-    remainingRef.current = Math.max(
-      0,
-      remainingRef.current - (Date.now() - startTimeRef.current),
-    );
-    clearTimeout(timeoutRef.current);
-    cancelAnimationFrame(rafRef.current);
-  }, []);
-
-  const resumeTimer = useCallback(() => startTimer(), [startTimer]);
-
-  useEffect(() => {
-    if (isInfinite) return;
-    startTimer();
     return () => {
-      clearTimeout(timeoutRef.current);
-      cancelAnimationFrame(rafRef.current);
+      remainingRef.current = Math.max(
+        0,
+        remainingRef.current - (Date.now() - startTimeRef.current),
+      );
+      clearTimeout(timerId);
+      cancelAnimationFrame(rafId);
     };
-  }, [isInfinite, startTimer]);
+  }, [isInfinite, isPaused, t.id, totalDuration]);
 
   return (
     <motion.div
@@ -90,8 +78,8 @@ export function ToastItem({ t }: { t: Toast }) {
       initial={{ opacity: 0, y: 50, scale: 0.9 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.1 } }}
-      onMouseEnter={isInfinite ? undefined : pauseTimer}
-      onMouseLeave={isInfinite ? undefined : resumeTimer}
+      onMouseEnter={isInfinite ? undefined : () => setIsPaused(true)}
+      onMouseLeave={isInfinite ? undefined : () => setIsPaused(false)}
       className={cn(
         'layout-group pointer-events-auto relative w-full overflow-hidden',
         'rounded-xl border border-gunmetal/30 bg-obsidian p-4 shadow-2xl shadow-void-black/50',
@@ -134,7 +122,7 @@ export function ToastItem({ t }: { t: Toast }) {
       {!isInfinite && (
         <div
           className={cn(
-            'absolute bottom-0 left-0 h-[3px]',
+            'absolute bottom-0 left-0 h-0.75',
             getProgressColor(t.type),
           )}
           style={{ width: `${progress}%` }}
