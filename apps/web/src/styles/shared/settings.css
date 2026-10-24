@@ -1,0 +1,194 @@
+/* Gelişmiş Ayarlar Açılır Paneli */
+.advanced-settings-wrapper {
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.02);
+  transition: all 0.2s ease;
+  overflow: hidden;
+  margin: 4px 0;
+}
+
+.advanced-settings-wrapper:hover {
+  border-color: var(--card-border-hover);
+}
+
+.advanced-settings-wrapper.is-open {
+  background: rgba(255, 255, 255, 0.035);
+  border-color: rgba(211, 250, 100, 0.25);
+}
+
+.advanced-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: transparent !important;
+  border: 0 !important;
+  color: var(--text-primary);
+  cursor: pointer;
+  outline: none;
+  transition: background 0.15s ease;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+.advanced-trigger:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.03) !important;
+}
+
+.advanced-trigger-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+}
+
+.advanced-icon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.advanced-trigger-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.advanced-trigger-text strong {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.advanced-trigger-text small {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.advanced-trigger-right {
+  display: flex;
+  align-items: center;
+}
+
+.chevron-indicator {
+  display: grid;
+  place-items: center;
+  color: var(--text-secondary);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chevron-indicator.is-open {
+  transform: rotate(180deg);
+  color: var(--accent);
+}
+
+.advanced-content-panel {
+  padding: 14px;
+  border-top: 1px solid var(--card-border);
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.quality-pill-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.quality-pill-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--card-border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.quality-pill-btn:hover:not(:disabled) {
+  border-color: var(--card-border-hover);
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.quality-pill-btn.is-active {
+  background: rgba(211, 250, 100, 0.15);
+  border-color: rgba(211, 250, 100, 0.45);
+  color: var(--accent);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+}
+
+.quality-pill-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.quality-pill-tag {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.quality-pill-btn.is-active .quality-pill-tag {
+  color: var(--accent);
+  opacity: 0.9;
+}
+
+/* Boyut Özeti Çubuğu */
+.size-overview {
+  background: rgba(211, 250, 100, 0.05);
+  border: 1px solid rgba(211, 250, 100, 0.16);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.size-overview > span {
+  display: flex;
+  flex-direction: column;
+}
+
+.size-overview small {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.size-overview strong {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.size-overview em {
+  font-family: 'JetBrains Mono', monospace;
+  font-style: normal;
+  font-size: 0.76rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.size-arrow {
+  color: var(--accent);
+  font-size: 1.1rem;
+}

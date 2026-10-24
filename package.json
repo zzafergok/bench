@@ -1,0 +1,23 @@
+{
+  "name": "bench",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@10.14.0",
+  "scripts": {
+    "dev": "concurrently -n api,web -c cyan,magenta \"pnpm --filter @bench/api dev\" \"pnpm --filter @bench/web dev\"",
+    "build": "pnpm --filter @bench/api build && pnpm --filter @bench/web build",
+    "typecheck": "pnpm --filter @bench/api typecheck && pnpm --filter @bench/web typecheck",
+    "test": "pnpm --filter @bench/api test && pnpm --filter @bench/web test",
+    "check:lines": "node scripts/check-line-protocol.mjs",
+    "lint": "node scripts/check-line-protocol.mjs && eslint ."
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "concurrently": "^9.1.2",
+    "eslint": "10.13.0",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "eslint-plugin-react-refresh": "0.5.7",
+    "globals": "17.13.0",
+    "typescript-eslint": "8.72.0"
+  }
+}

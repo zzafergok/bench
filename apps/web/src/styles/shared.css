@@ -1,0 +1,13 @@
+@import './shared/merge.css';
+@import './shared/feedback.css';
+@import './shared/responsive.css';
+@import './shared/workflow.css';
+@import './shared/settings.css';
+@import './shared/files.css';
+@import './shared/controls.css';
+@import './shared/navigation.css';
+@import './shared/dropzone.css';
+@import './shared/markdown.css';
+@import './shared/tools-format.css';
+@import './shared/tools-data.css';
+@import './shared/crypto.css';

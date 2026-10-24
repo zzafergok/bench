@@ -1,0 +1,45 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-text: var(--accent-text);
+  --color-accent-glow: var(--accent-glow);
+
+  --color-bg-deep: #080c14;
+  --color-bg-surface: #0f1623;
+  --color-card-bg: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-card-border-hover: var(--card-border-hover);
+
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+
+  --color-danger-bg: var(--danger-bg);
+  --color-danger-border: var(--danger-border);
+  --color-danger-text: #fca5a5;
+
+  /* Tulpar Token Mappings -> Bench Proje Tokenları */
+  --color-tulpar-blue: #d3fa64;
+  --color-void-black: #080c14;
+  --color-obsidian: #0f1623;
+  --color-gunmetal: #1e293b;
+  --color-titanium: #f8fafc;
+  --color-ash: #94a3b8;
+  --color-alert-red: #ef4444;
+  --color-signal-green: #22c55e;
+  --color-tulpar-gold: #f59e0b;
+}
+
+@import '../styles/base.css';
+@import '../styles/shared.css';
+@import '../styles/rendered-markdown.css';
+
+html {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100%;
+}

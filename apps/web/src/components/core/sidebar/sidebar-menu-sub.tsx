@@ -1,0 +1,61 @@
+'use client';
+
+import * as React from 'react';
+import { Slot } from '@radix-ui/react-slot';
+import { cn } from '@/lib/utils';
+
+export const SidebarMenuSub = React.forwardRef<
+  HTMLUListElement,
+  React.ComponentProps<'ul'>
+>(({ className, ...props }, ref) => (
+  <ul
+    ref={ref}
+    data-sidebar="menu-sub"
+    data-slot="sidebar-menu-sub"
+    className={cn(
+      'mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l border-gunmetal/60 px-2.5 py-0.5',
+      'group-data-[collapsible=icon]:hidden',
+      className,
+    )}
+    {...props}
+  />
+));
+SidebarMenuSub.displayName = 'SidebarMenuSub';
+
+export const SidebarMenuSubItem = React.forwardRef<
+  HTMLLIElement,
+  React.ComponentProps<'li'>
+>(({ ...props }, ref) => (
+  <li ref={ref} data-slot="sidebar-menu-sub-item" {...props} />
+));
+SidebarMenuSubItem.displayName = 'SidebarMenuSubItem';
+
+export const SidebarMenuSubButton = React.forwardRef<
+  HTMLAnchorElement,
+  React.ComponentProps<'a'> & {
+    asChild?: boolean;
+    size?: 'sm' | 'md';
+    isActive?: boolean;
+  }
+>(({ asChild = false, size = 'md', isActive, className, ...props }, ref) => {
+  const Comp = asChild ? Slot : 'a';
+
+  return (
+    <Comp
+      ref={ref}
+      data-sidebar="menu-sub-button"
+      data-slot="sidebar-menu-sub-button"
+      data-size={size}
+      data-active={isActive}
+      className={cn(
+        'rounded-xs flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden px-2 text-ash outline-none ring-tulpar-blue/50 hover:bg-gunmetal/40 hover:text-white focus-visible:ring-1 active:bg-gunmetal/60 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
+        'data-[active=true]:bg-gunmetal/60 data-[active=true]:text-white',
+        size === 'sm' && 'text-xs',
+        size === 'md' && 'text-sm',
+        className,
+      )}
+      {...props}
+    />
+  );
+});
+SidebarMenuSubButton.displayName = 'SidebarMenuSubButton';

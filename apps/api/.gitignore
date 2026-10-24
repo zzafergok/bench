@@ -1,0 +1,36 @@
+# Bağımlılıklar (Dependencies)
+node_modules/
+.pnp
+.pnp.js
+
+# Derleme ve derleyici çıktıları (Build outputs)
+dist/
+build/
+
+# Ortam değişkenleri ve yerel konfigürasyon (Environment variables)
+.env
+.env.*
+.env.local
+!.env.example
+
+# Log ve hata raporları (Logs)
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Test ve kod kapsamı (Coverage)
+coverage/
+.nyc_output/
+
+# TypeScript artımlı derleme dosyaları (Incremental build)
+*.tsbuildinfo
+
+# İşletim sistemi ve editör dosyaları (OS & Editor)
+.DS_Store
+*.pem
+.idea/
+.vscode/
+*.swp
+*.swo

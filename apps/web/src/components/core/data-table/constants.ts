@@ -1,0 +1,38 @@
+import type { Locale } from '@/i18n/routing';
+
+export const dataTableCopy = {
+  tr: {
+    empty: 'Sonuç bulunamadı.',
+    rows: 'satır',
+    rowsPerPage: 'Sayfa başına satır',
+    page: 'Sayfa',
+    of: '/',
+    firstPage: 'İlk sayfaya git',
+    previousPage: 'Önceki sayfaya git',
+    nextPage: 'Sonraki sayfaya git',
+    lastPage: 'Son sayfaya git',
+    columns: 'Sütunlar',
+    toggleColumns: 'Sütunları değiştir',
+    resetColumns: 'Sütunları sıfırla',
+    ascending: 'Artan',
+    descending: 'Azalan',
+    hide: 'Gizle',
+  },
+  en: {
+    empty: 'No results.',
+    rows: 'rows',
+    rowsPerPage: 'Rows per page',
+    page: 'Page',
+    of: 'of',
+    firstPage: 'Go to first page',
+    previousPage: 'Go to previous page',
+    nextPage: 'Go to next page',
+    lastPage: 'Go to last page',
+    columns: 'Columns',
+    toggleColumns: 'Toggle columns',
+    resetColumns: 'Reset columns',
+    ascending: 'Ascending',
+    descending: 'Descending',
+    hide: 'Hide',
+  },
+} satisfies Record<Locale, Record<string, string>>;

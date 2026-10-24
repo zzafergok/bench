@@ -1,0 +1,41 @@
+/* PDF Birleştirme İş Akışı Sıralaması */
+.merge-file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.merge-file-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.order-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(211, 250, 100, 0.12);
+  padding: 2px 7px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.order-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.order-button {
+  width: 24px;
+  height: 24px;
+  padding: 3px;
+}
+
+.order-button svg {
+  width: 14px;
+  height: 14px;
+}

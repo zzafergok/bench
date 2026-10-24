@@ -1,0 +1,57 @@
+# Bağımlılıklar (Dependencies)
+node_modules/
+.pnp
+.pnp.js
+
+# Derleme ve Çıktı Klasörleri (Build Outputs)
+dist/
+build/
+out/
+.next/
+apps/*/dist/
+apps/*/.next/
+output/
+
+# Önbellekler (Cache)
+.turbo/
+*.tsbuildinfo
+
+# Python / MarkItDown Ortamları
+.venv*
+venv/
+__pycache__/
+*.pyc
+
+# Test ve Test Araçları (Testing)
+coverage/
+.nyc_output/
+.playwright-cli/
+
+# Ortam Değişkenleri ve Yerel Sırlar (Environment Variables)
+.env
+.env.*
+.env*.local
+apps/*/.env
+apps/*/.env.*
+!.env.example
+
+# Log ve Hata Raporları (Logs)
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# İşletim Sistemi ve Editör Dosyaları (OS & Editor)
+.DS_Store
+Thumbs.db
+*.pem
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Senkronizasyon ve Çift Kopya Çakışmaları (Sync Conflicts)
+* 2.*
+*Conflicted Copy*
+*.sync-conflict-*
