@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import './globals.css';
+import './globals.scss';
 
 import { Navbar, Footer } from '@/components/ui/layout';
 
@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <body>
-        <div className="app-viewport">
+        <div className="mx-auto flex min-h-dvh w-full max-w-225 flex-col px-6 py-4 sm:px-3.5">
           <Navbar />
           {children}
           <Footer />

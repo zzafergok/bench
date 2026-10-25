@@ -29,8 +29,8 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## 2. Next.js App Router
 
-- [ ] `src/app/layout.tsx` global metadata ve `globals.css` için tek giriş noktası olarak kalıyor.
-- [ ] Global stil importları yalnızca `src/app/globals.css` içinde yapılıyor; Vite tarzı ikinci bir global CSS giriş dosyası eklenmiyor.
+- [ ] `src/app/layout.tsx` global metadata ve `globals.scss` için tek giriş noktası olarak kalıyor.
+- [ ] Global stil importları yalnızca `src/app/globals.scss` içinde yapılıyor; ikinci bir global stil giriş dosyası eklenmiyor.
 - [ ] `page.tsx` ve `layout.tsx` varsayılan olarak Server Component kalıyor.
 - [ ] `"use client"` yalnızca event handler, React state/effect veya tarayıcı API’si gereken en düşük bileşen sınırında kullanılıyor.
 - [ ] `localStorage`, `window`, `navigator` ve dosya API’leri ilk SSR render’ında okunmuyor; hydration sonrasında `useEffect` veya kullanıcı etkileşimi ile kullanılıyor.

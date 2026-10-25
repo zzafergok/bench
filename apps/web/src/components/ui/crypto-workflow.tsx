@@ -13,6 +13,7 @@ import {
 } from '@/types';
 import { Input } from '@/components/core/input';
 import { ThreatLookupCard } from './threat-lookup-card';
+import { CryptoChecksumResults } from './crypto-checksum-results';
 
 interface CryptoWorkflowProps {
   files: File[];
@@ -73,10 +74,10 @@ export function CryptoWorkflow({
         </p>
       </div>
 
-      <div className="crypto-action-tabs">
+      <div className="mb-4 flex flex-wrap gap-2">
         <Button
           type="button"
-          className={`crypto-tab ${action === 'encrypt' ? 'is-active' : ''}`}
+          className={`inline-flex items-center gap-1.5 rounded-sm border px-3.5 py-1.75 text-[0.75rem] font-semibold transition-all [&_svg]:size-3.5 ${action === 'encrypt' ? 'border-accent/40 bg-accent/12 text-accent' : 'border-card-border bg-white/3 text-text-secondary hover:bg-white/6 hover:text-text-primary'}`}
           onClick={() => onActionChange('encrypt')}
         >
           <LockIcon />
@@ -84,7 +85,7 @@ export function CryptoWorkflow({
         </Button>
         <Button
           type="button"
-          className={`crypto-tab ${action === 'decrypt' ? 'is-active' : ''}`}
+          className={`inline-flex items-center gap-1.5 rounded-sm border px-3.5 py-1.75 text-[0.75rem] font-semibold transition-all [&_svg]:size-3.5 ${action === 'decrypt' ? 'border-accent/40 bg-accent/12 text-accent' : 'border-card-border bg-white/3 text-text-secondary hover:bg-white/6 hover:text-text-primary'}`}
           onClick={() => onActionChange('decrypt')}
         >
           <UnlockIcon />
@@ -92,7 +93,7 @@ export function CryptoWorkflow({
         </Button>
         <Button
           type="button"
-          className={`crypto-tab ${action === 'hash' ? 'is-active' : ''}`}
+          className={`inline-flex items-center gap-1.5 rounded-sm border px-3.5 py-1.75 text-[0.75rem] font-semibold transition-all [&_svg]:size-3.5 ${action === 'hash' ? 'border-accent/40 bg-accent/12 text-accent' : 'border-card-border bg-white/3 text-text-secondary hover:bg-white/6 hover:text-text-primary'}`}
           onClick={() => onActionChange('hash')}
         >
           <HashIcon />
@@ -114,7 +115,7 @@ export function CryptoWorkflow({
             onChange={(e) => onPassphraseChange(e.target.value)}
             className="text-input"
           />
-          <small className="crypto-hint">
+          <small className="mt-1 block text-[0.72rem] text-text-muted">
             {action === 'encrypt'
               ? 'Şifrelenen dosya bu parola olmadan kesinlikle açılamaz. Parolanızı kaybetmeyin.'
               : 'Dosyayı şifrelerken kullandığınız parolayı girin.'}
@@ -137,45 +138,11 @@ export function CryptoWorkflow({
       )}
 
       {result?.checksums && (
-        <div className="checksum-results-card">
-          <div className="checksum-row">
-            <span className="checksum-name">SHA-256:</span>
-            <code className="checksum-code">{result.checksums.sha256}</code>
-            <Button
-              type="button"
-              className="copy-hash-btn"
-              onClick={() =>
-                copyToClipboard(result.checksums!.sha256, 'sha256')
-              }
-            >
-              {copiedHash === 'sha256' ? 'Kopyalandı' : 'Kopyala'}
-            </Button>
-          </div>
-          <div className="checksum-row">
-            <span className="checksum-name">SHA-512:</span>
-            <code className="checksum-code">{result.checksums.sha512}</code>
-            <Button
-              type="button"
-              className="copy-hash-btn"
-              onClick={() =>
-                copyToClipboard(result.checksums!.sha512, 'sha512')
-              }
-            >
-              {copiedHash === 'sha512' ? 'Kopyalandı' : 'Kopyala'}
-            </Button>
-          </div>
-          <div className="checksum-row">
-            <span className="checksum-name">MD5:</span>
-            <code className="checksum-code">{result.checksums.md5}</code>
-            <Button
-              type="button"
-              className="copy-hash-btn"
-              onClick={() => copyToClipboard(result.checksums!.md5, 'md5')}
-            >
-              {copiedHash === 'md5' ? 'Kopyalandı' : 'Kopyala'}
-            </Button>
-          </div>
-        </div>
+        <CryptoChecksumResults
+          checksums={result.checksums}
+          copiedHash={copiedHash}
+          onCopy={copyToClipboard}
+        />
       )}
 
       {result?.checksums && (

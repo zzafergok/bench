@@ -53,8 +53,8 @@ interface HeaderProps {
 
 export function Header({ mode }: HeaderProps) {
   return (
-    <section className="hero" aria-labelledby="page-title">
-      <p className="eyebrow">
+    <section aria-labelledby="page-title">
+      <p className="mb-1 font-mono text-[0.66rem] font-semibold tracking-[0.16em] text-accent/90 uppercase">
         {mode === 'compress' && 'LOCAL & PRIVATE PDF ENGINE'}
         {mode === 'markdown' && 'DOCUMENTS TO AI-READY MARKDOWN'}
         {mode === 'merge' && 'LOCAL & FAST PDF MERGER'}
@@ -63,7 +63,10 @@ export function Header({ mode }: HeaderProps) {
         {mode === 'crypto' && 'AES-256 VAULT & FILE INTEGRITY'}
         {mode === 'data' && 'STRUCTURED DATA CONVERTER'}
       </p>
-      <h1 id="page-title">
+      <h1
+        id="page-title"
+        className="text-[clamp(1.5rem,3.2vw,2rem)] leading-[1.2] font-bold tracking-[-0.035em] text-text-primary [&_em]:font-serif [&_em]:text-accent [&_em]:font-normal"
+      >
         {mode === 'compress' && (
           <>
             PDF’lerini küçült. <em>Gizli kalsın.</em>
@@ -100,7 +103,7 @@ export function Header({ mode }: HeaderProps) {
           </>
         )}
       </h1>
-      <p className="hero-copy">
+      <p className="mx-auto mt-1 mb-2.5 max-w-120 text-[0.8rem] leading-relaxed text-text-muted">
         {mode === 'compress' &&
           'İşlemler tamamen tarayıcın ve kendi bilgisayarındaki yerel Ghostscript motoru üzerinde çalışır. Sıfır bulut transferi.'}
         {mode === 'markdown' &&
@@ -141,15 +144,21 @@ export function Navbar({ sessionStats }: NavbarProps) {
   }[engineStatus];
 
   return (
-    <header className="topbar">
-      <Link className="brand" href="/" aria-label="Bench ana sayfa">
-        <span className="brand-mark">B</span>
-        <span className="brand-name">Bench</span>
+    <header className="flex items-center justify-between border-b border-white/5 pb-3">
+      <Link
+        className="inline-flex items-center gap-2.5 text-[1.15rem] font-bold tracking-[-0.03em] text-text-primary no-underline"
+        href="/"
+        aria-label="Bench ana sayfa"
+      >
+        <span className="grid size-7 place-items-center rounded-[7px_7px_7px_2px] bg-accent text-[0.95rem] font-extrabold text-accent-text">
+          B
+        </span>
+        <span className="font-bold">Bench</span>
       </Link>
-      <div className="topbar-right">
+      <div className="flex items-center gap-2">
         {currentStats && currentStats.filesProcessed > 0 && (
           <span
-            className="session-badge"
+            className="inline-flex items-center gap-1.5 rounded-full border border-card-border bg-white/4 px-3 py-0.75 font-mono text-[0.68rem] text-text-secondary [&_b]:text-accent"
             title="Mevcut oturumda işlenen toplam hacim"
           >
             <b>{currentStats.filesProcessed}</b> dosya işlendi
@@ -162,11 +171,11 @@ export function Navbar({ sessionStats }: NavbarProps) {
           </span>
         )}
         <span
-          className={`local-badge is-${engineStatus}`}
+          className={`inline-flex items-center gap-2 rounded-full border border-card-border bg-white/4 px-3 py-0.75 font-mono text-[0.72rem] font-medium tracking-wider text-text-secondary ${engineStatus === 'offline' ? '[&>span]:bg-[#ff6b6b] [&>span]:shadow-[0_0_8px_rgba(255,107,107,0.7)]' : engineStatus === 'checking' || engineStatus === 'degraded' ? '[&>span]:bg-[#f6c85f] [&>span]:shadow-[0_0_8px_rgba(246,200,95,0.7)]' : ''}`}
           role="status"
           aria-live="polite"
         >
-          <span className="pulse-dot" />
+          <span className="size-1.75 rounded-full bg-accent shadow-[0_0_8px_var(--accent)]" />
           {statusLabel}
         </span>
       </div>
@@ -176,16 +185,19 @@ export function Navbar({ sessionStats }: NavbarProps) {
 
 export function Footer() {
   return (
-    <footer className="footer-bar">
-      <div className="trust-row" aria-label="Gizlilik taahhütleri">
+    <footer className="border-t border-white/5 pt-3.5">
+      <div
+        className="flex items-center justify-center gap-4 text-[0.74rem] text-text-muted [&_span]:inline-flex [&_span]:items-center [&_span]:gap-1.5 [&_b]:font-mono [&_b]:text-[0.7rem] [&_b]:text-accent"
+        aria-label="Gizlilik taahhütleri"
+      >
         <span>
           <b>01</b> Sıfır Bulut Transferi
         </span>
-        <span className="trust-divider">•</span>
+        <span className="text-white/15">•</span>
         <span>
           <b>02</b> Anlık Geçici Temizlik
         </span>
-        <span className="trust-divider">•</span>
+        <span className="text-white/15">•</span>
         <span>
           <b>03</b> Açık & Yerel Kaynak
         </span>

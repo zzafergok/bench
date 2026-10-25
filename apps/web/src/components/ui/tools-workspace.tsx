@@ -45,9 +45,9 @@ export function ToolsWorkspace() {
   });
 
   return (
-    <main className="main-content">
-      <div className="interactive-wrapper">
-        <div className="hero-block">
+    <main className="flex flex-1 items-center justify-center py-6">
+      <div className="flex w-full max-w-220 flex-col gap-4.5">
+        <div className="text-center">
           <Header mode={wf.mode} />
           <ModeSwitch
             mode={wf.mode}
@@ -56,7 +56,10 @@ export function ToolsWorkspace() {
           />
         </div>
 
-        <Card className="workbench-card" aria-label="Belge işlem alanı">
+        <Card
+          className="flex w-full flex-col gap-3.5 rounded-[18px] border border-card-border bg-card-bg p-4.5 shadow-[0_24px_48px_-12px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-[20px]"
+          aria-label="Belge işlem alanı"
+        >
           <Dropzone
             inputId={inputId}
             fileInput={fileInput}
@@ -103,8 +106,13 @@ export function ToolsWorkspace() {
           />
 
           {wf.error && (
-            <div className="error-banner" role="alert">
-              <span className="error-icon">!</span>
+            <div
+              className="flex items-center gap-2.5 rounded-md border border-danger-border bg-danger-bg px-3 py-2.25 text-0.8rem text-danger-text"
+              role="alert"
+            >
+              <span className="grid size-4.5 shrink-0 place-items-center rounded-full bg-danger-text text-[0.72rem] font-extrabold text-black">
+                !
+              </span>
               <span>{wf.error}</span>
             </div>
           )}

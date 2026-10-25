@@ -118,7 +118,7 @@ export function Dropzone({
   return (
     <Label
       htmlFor={inputId}
-      className={`dropzone ${filesCount ? 'is-compact' : ''} ${isDragging ? 'is-dragging' : ''} ${disabled ? 'is-disabled' : ''}`}
+      className={`block cursor-pointer rounded-lg border-[1.5px] border-dashed border-white/14 bg-white/1.5 p-6 outline-none transition-all hover:border-accent hover:bg-accent-glow focus-visible:border-accent focus-visible:bg-accent-glow ${filesCount ? 'border-accent/20 bg-accent/2 px-4.5 py-3.5' : 'px-6 py-9.5'} ${isDragging ? 'border-accent bg-accent-glow' : ''} ${disabled ? 'pointer-events-none opacity-65' : ''}`}
       onDragOver={(e) => {
         e.preventDefault();
         setIsDragging(true);
@@ -128,20 +128,35 @@ export function Dropzone({
       onKeyDown={handleKeyDown}
       tabIndex={0}
     >
-      <div className="dropzone-inner">
-        <span className="upload-icon">
+      <div
+        className={`flex flex-col items-center justify-center gap-4 text-center ${filesCount ? 'flex-row justify-between gap-3.5 text-left' : ''}`}
+      >
+        <span
+          className={`grid shrink-0 place-items-center rounded-full bg-accent-glow text-accent transition-transform ${filesCount ? 'size-8' : 'size-12'} ${isDragging ? '-translate-y-0.5' : ''}`}
+        >
           <UploadIcon />
         </span>
-        <div className="dropzone-text">
-          <strong>{getDropzoneText()}</strong>
-          <span>veya göz atmak için tıklayın</span>
+        <div
+          className={`flex flex-col gap-1 ${filesCount ? 'items-start gap-0.5' : 'items-center'}`}
+        >
+          <strong className="block text-[0.92rem] leading-[1.35] font-semibold text-text-primary">
+            {getDropzoneText()}
+          </strong>
+          <span className="block text-[0.78rem] leading-[1.4] text-text-secondary">
+            veya göz atmak için tıklayın
+          </span>
         </div>
-        <div className="dropzone-badge">{getDropzoneBadge()}</div>
+        {!filesCount && (
+          <div className="mt-0.5 inline-flex items-center gap-1.5 rounded-full border border-card-border bg-white/4 px-3 py-1 text-[0.7rem] text-text-muted">
+            {getDropzoneBadge()}
+          </div>
+        )}
       </div>
       <Input
         ref={fileInput}
         id={inputId}
         type="file"
+        className="dropzone-input"
         multiple={mode !== 'images' && mode !== 'crypto'}
         accept={getAcceptedFormats()}
         onChange={handleChange}

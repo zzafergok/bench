@@ -182,7 +182,9 @@ export function ImageOptimizeWorkflow({
                 Orijinal: {formatBytes(result.originalBytes)} · Sıkıştırılmış:{' '}
                 {formatBytes(result.processedBytes)}
                 {result.originalBytes > result.processedBytes && (
-                  <span className="savings-badge">-%{savings} tasarruf</span>
+                  <span className="ml-2 inline-block rounded-full border border-accent/30 bg-accent/15 px-1.5 py-px font-mono text-[0.68rem] font-bold text-accent">
+                    -%{savings} tasarruf
+                  </span>
                 )}
               </small>
             </span>
