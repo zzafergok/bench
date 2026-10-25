@@ -178,6 +178,10 @@ export function WorkflowRenderer({
           }}
           onPassphraseChange={crypto.setPassphrase}
           onExecute={onExecute}
+          threatLoading={crypto.threatLoading}
+          threatReport={crypto.threatReport}
+          threatError={crypto.threatError}
+          onCheckThreat={crypto.checkThreat}
         />
       ) : null,
     data: () => (

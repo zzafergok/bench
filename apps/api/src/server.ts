@@ -14,6 +14,7 @@ import { registerImageOptimizeRoute } from './routes/imageOptimize.js';
 import { registerImagesRoute } from './routes/images.js';
 import { registerMarkdownRoute } from './routes/markdown.js';
 import { registerMergeRoute } from './routes/merge.js';
+import { registerThreatLookupRoute } from './routes/threatLookup.js';
 
 export function createApp(config: AppConfig = loadConfig()) {
   const app = Fastify({ logger: { transport: { target: 'pino-pretty' } } });
@@ -80,6 +81,7 @@ export function createApp(config: AppConfig = loadConfig()) {
       'sanitize',
       'imageOptimize',
       'crypto',
+      'threatLookup',
       'data',
     ],
     supportedMarkdownFormats: ['pdf', 'docx', 'xlsx', 'pptx'],
@@ -102,6 +104,7 @@ export function createApp(config: AppConfig = loadConfig()) {
   registerImagesRoute(app, config);
   registerImageOptimizeRoute(app, config);
   registerCryptoRoutes(app, config);
+  registerThreatLookupRoute(app, config);
   registerDataRoute(app, config);
 
   return app;

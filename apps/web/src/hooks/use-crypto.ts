@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { CryptoResult } from '../types';
+import type { CryptoResult, ThreatReport } from '../types';
 import { readApiError } from '../utils/api';
 
 export function useCrypto() {
@@ -8,10 +8,39 @@ export function useCrypto() {
     'encrypt',
   );
   const [passphrase, setPassphrase] = useState<string>('');
+  const [threatLoading, setThreatLoading] = useState(false);
+  const [threatReport, setThreatReport] = useState<ThreatReport | null>(null);
+  const [threatError, setThreatError] = useState<string | null>(null);
+
+  const checkThreat = async (hash: string): Promise<ThreatReport> => {
+    setThreatLoading(true);
+    setThreatError(null);
+    try {
+      const res = await fetch(
+        `/api/crypto/threat-lookup?hash=${encodeURIComponent(hash)}`,
+      );
+      if (!res.ok) {
+        throw new Error(await readApiError(res, 'Tehdit sorgulanamadı.'));
+      }
+      const data: ThreatReport = await res.json();
+      setThreatReport(data);
+      return data;
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : 'Tehdit sorgusu başarısız oldu.';
+      setThreatError(message);
+      throw err;
+    } finally {
+      setThreatLoading(false);
+    }
+  };
 
   const executeCrypto = async (files: File[]): Promise<CryptoResult> => {
     if (files.length === 0) throw new Error('İşlem için bir dosya seçin.');
     const file = files[0];
+
+    setThreatReport(null);
+    setThreatError(null);
 
     const formData = new FormData();
     formData.append('file', file);
@@ -23,7 +52,9 @@ export function useCrypto() {
       });
 
       if (!res.ok) {
-        throw new Error(await readApiError(res, 'Hash hesaplama başarısız oldu.'));
+        throw new Error(
+          await readApiError(res, 'Hash hesaplama başarısız oldu.'),
+        );
       }
 
       const data = await res.json();
@@ -33,7 +64,9 @@ export function useCrypto() {
     }
 
     if (action === 'encrypt' && passphrase.length < 12) {
-      throw new Error('Yeni şifrelemeler için parola en az 12 karakter olmalıdır.');
+      throw new Error(
+        'Yeni şifrelemeler için parola en az 12 karakter olmalıdır.',
+      );
     }
     if (action === 'decrypt' && !passphrase) {
       throw new Error('Şifre çözmek için parola gereklidir.');
@@ -92,15 +125,25 @@ export function useCrypto() {
   const clearResult = () => {
     if (result?.url) URL.revokeObjectURL(result.url);
     setResult(null);
+    setThreatReport(null);
+    setThreatError(null);
   };
 
   return {
     result,
     action,
-    setAction,
+    setAction: (newAction: 'encrypt' | 'decrypt' | 'hash') => {
+      setAction(newAction);
+      setThreatReport(null);
+      setThreatError(null);
+    },
     passphrase,
     setPassphrase,
     executeCrypto,
     clearResult,
+    threatLoading,
+    threatReport,
+    threatError,
+    checkThreat,
   };
 }

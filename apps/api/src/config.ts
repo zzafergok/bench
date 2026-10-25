@@ -47,6 +47,7 @@ const environmentSchema = z.object({
     .positive()
     .max(10 * 60 * 1000)
     .default(30_000),
+  VIRUSTOTAL_API_KEY: z.string().optional(),
 });
 
 export type AppConfig = z.infer<typeof environmentSchema>;
@@ -54,5 +55,15 @@ export type AppConfig = z.infer<typeof environmentSchema>;
 export function loadConfig(
   environment: Record<string, unknown> = process.env,
 ): AppConfig {
+  if (typeof process.loadEnvFile === 'function') {
+    for (const envPath of ['.env', 'apps/api/.env', '../api/.env']) {
+      try {
+        process.loadEnvFile(envPath);
+        break;
+      } catch {
+        // İlgili dizinde .env yoksa diğerini dene veya geç
+      }
+    }
+  }
   return environmentSchema.parse(environment);
 }

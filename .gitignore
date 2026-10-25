@@ -34,6 +34,7 @@ coverage/
 apps/*/.env
 apps/*/.env.*
 !.env.example
+!apps/**/.env.example
 
 # Log ve Hata Raporları (Logs)
 *.log

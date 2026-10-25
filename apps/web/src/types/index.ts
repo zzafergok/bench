@@ -64,6 +64,34 @@ export type ImageOptimizeResult = {
   height?: number;
 };
 
+export type ThreatStats = {
+  malicious: number;
+  suspicious: number;
+  harmless: number;
+  undetected: number;
+};
+
+export type ThreatQuota = {
+  dailyUsed: number;
+  dailyAllowed: number;
+  monthlyUsed: number;
+  monthlyAllowed: number;
+};
+
+export type ThreatReport = {
+  hash: string;
+  status: 'clean' | 'suspicious' | 'malicious' | 'unknown';
+  reputation: string;
+  provider: 'circl' | 'virustotal';
+  trustScore?: number;
+  fileName?: string;
+  fileSize?: string;
+  database?: string;
+  stats?: ThreatStats;
+  quota?: ThreatQuota;
+  queriedAt: string;
+};
+
 export type CryptoResult = {
   url?: string;
   downloadName?: string;
@@ -76,6 +104,7 @@ export type CryptoResult = {
     bytes: number;
     filename: string;
   };
+  threatReport?: ThreatReport;
 };
 
 export type DataConvertResult = {

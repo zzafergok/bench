@@ -5,8 +5,14 @@ import { Button } from '@/components/core/button';
 import { Label } from '@/components/core/label';
 import { Link } from '@/components/core/link';
 import { Spinner } from '@/components/core/spinner';
-import { formatBytes, type CryptoResult, type JobState } from '@/types';
+import {
+  formatBytes,
+  type CryptoResult,
+  type JobState,
+  type ThreatReport,
+} from '@/types';
 import { Input } from '@/components/core/input';
+import { ThreatLookupCard } from './threat-lookup-card';
 
 interface CryptoWorkflowProps {
   files: File[];
@@ -14,9 +20,13 @@ interface CryptoWorkflowProps {
   result: CryptoResult | null;
   action: 'encrypt' | 'decrypt' | 'hash';
   passphrase: string;
+  threatLoading: boolean;
+  threatReport: ThreatReport | null;
+  threatError: string | null;
   onActionChange: (action: 'encrypt' | 'decrypt' | 'hash') => void;
   onPassphraseChange: (p: string) => void;
   onExecute: () => void;
+  onCheckThreat: (hash: string) => void;
 }
 
 export function CryptoWorkflow({
@@ -25,9 +35,13 @@ export function CryptoWorkflow({
   result,
   action,
   passphrase,
+  threatLoading,
+  threatReport,
+  threatError,
   onActionChange,
   onPassphraseChange,
   onExecute,
+  onCheckThreat,
 }: CryptoWorkflowProps) {
   const [copiedHash, setCopiedHash] = useState<string | null>(null);
 
@@ -162,6 +176,16 @@ export function CryptoWorkflow({
             </Button>
           </div>
         </div>
+      )}
+
+      {result?.checksums && (
+        <ThreatLookupCard
+          sha256={result.checksums.sha256}
+          threatLoading={threatLoading}
+          threatReport={threatReport}
+          threatError={threatError}
+          onCheckThreat={onCheckThreat}
+        />
       )}
 
       {result?.url && (
